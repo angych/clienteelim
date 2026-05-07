@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ElimCafe | Pedido Online</title>
+
+    <!-- GOOGLE FONTS -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+
+    <!-- HERO -->
+
+    <header class="hero">
+
+        <div class="hero-content">
+
+            <h1>☕ ElimCafe</h1>
+
+            <p>Pedí desde tu mesa</p>
+
+            <button class="hero-btn" onclick="scrollToMenu()">
+                Ver Menú
+            </button>
+
+        </div>
+
+    </header>
+
+    <!-- MAIN -->
+
+    <main>
+
+        <section class="menu-section" id="menu">
+
+            <div class="section-title">
+
+                <h2>Nuestro Menú</h2>
+
+                <p>
+                    Elegí bebidas y comidas
+                </p>
+
+            </div>
+
+            <!-- FILTROS -->
+
+            <div class="menu-filters">
+
+                <button class="menu-filter active" data-filter="Todos">
+                    Todos
+                </button>
+
+                <button class="menu-filter" data-filter="Bebida">
+                    Bebidas
+                </button>
+
+                <button class="menu-filter" data-filter="Comida">
+                    Comidas
+                </button>
+
+            </div>
+
+            <!-- PRODUCTOS -->
+
+            <div class="products-grid" id="productsGrid">
+
+                <!-- LATTE -->
+
+                <div class="product-card" data-category="Bebida">
+
+                    <div class="product-image">
+                        ☕
+                    </div>
+
+                    <div class="product-info">
+
+                        <h3>Latte</h3>
+
+                        <p>
+                            Café con leche espumada
+                        </p>
+
+                        <div class="product-bottom">
+
+                            <span>$4500</span>
+
+                            <button 
+                                class="add-cart-btn"
+                                onclick="addToCart('Latte',4500,'Bebida')"
+                            >
+                                +
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- FRAPPUCCINO -->
+
+                <div class="product-card" data-category="Bebida">
+
+                    <div class="product-image">
+                        🥤
+                    </div>
+
+                    <div class="product-info">
+
+                        <h3>Frappuccino</h3>
+
+                        <p>
+                            Café frío premium
+                        </p>
+
+                        <div class="product-bottom">
+
+                            <span>$6200</span>
+
+                            <button 
+                                class="add-cart-btn"
+                                onclick="addToCart('Frappuccino',6200,'Bebida')"
+                            >
+                                +
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- CHEESECAKE -->
+
+                <div class="product-card" data-category="Comida">
+
+                    <div class="product-image">
+                        🍰
+                    </div>
+
+                    <div class="product-info">
+
+                        <h3>Cheesecake</h3>
+
+                        <p>
+                            Cheesecake artesanal
+                        </p>
+
+                        <div class="product-bottom">
+
+                            <span>$5500</span>
+
+                            <button 
+                                class="add-cart-btn"
+                                onclick="addToCart('Cheesecake',5500,'Comida')"
+                            >
+                                +
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- WAFFLES -->
+
+                <div class="product-card" data-category="Comida">
+
+                    <div class="product-image">
+                        🧇
+                    </div>
+
+                    <div class="product-info">
+
+                        <h3>Waffles</h3>
+
+                        <p>
+                            Waffles premium
+                        </p>
+
+                        <div class="product-bottom">
+
+                            <span>$6500</span>
+
+                            <button 
+                                class="add-cart-btn"
+                                onclick="addToCart('Waffles',6500,'Comida')"
+                            >
+                                +
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- CARRITO -->
+
+    <aside class="cart-sidebar">
+
+        <div class="cart-header">
+
+            <div>
+
+                <h2>🛒 Pedido</h2>
+
+                <p>Mesa #12</p>
+
+            </div>
+
+            <div class="cart-count" id="cartCount">
+                0
+            </div>
+
+        </div>
+
+        <!-- ITEMS -->
+
+        <div class="cart-items" id="cartItems">
+
+            <div class="empty-cart">
+
+                <h3>
+                    Tu carrito está vacío
+                </h3>
+
+            </div>
+
+        </div>
+
+        <!-- FOOTER -->
+
+        <div class="cart-footer">
+
+            <div class="cart-total">
+
+                <span>Total</span>
+
+                <strong id="cartTotal">
+                    $0
+                </strong>
+
+            </div>
+
+            <button class="checkout-btn" onclick="openCheckout()">
+                Finalizar Pedido
+            </button>
+
+        </div>
+
+    </aside>
+
+    <!-- MODAL -->
+
+    <div class="checkout-modal" id="checkoutModal">
+
+        <div class="checkout-content">
+
+            <div class="checkout-top">
+
+                <h2>
+                    Pedido Confirmado ☕
+                </h2>
+
+                <button class="close-modal" onclick="closeCheckout()">
+                    ✕
+                </button>
+
+            </div>
+
+            <div class="checkout-info">
+
+                <div class="checkout-card">
+
+                    <span>Número Pedido</span>
+
+                    <h3 id="orderNumber">
+                        #000
+                    </h3>
+
+                </div>
+
+                <div class="checkout-card">
+
+                    <span>Total</span>
+
+                    <h3 id="checkoutTotal">
+                        $0
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- JS -->
+
+    <script src="script.js"></script>
+
+</body>
+</html>
