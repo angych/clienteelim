@@ -4,17 +4,27 @@ const cartTotal = document.getElementById("cartTotal");
 
 const cartCount = document.getElementById("cartCount");
 
-const checkoutModal = document.getElementById("checkoutModal");
-
-const checkoutTotal = document.getElementById("checkoutTotal");
-
-const orderNumber = document.getElementById("orderNumber");
-
 const menuFilters = document.querySelectorAll(".menu-filter");
 
 const productCards = document.querySelectorAll(".product-card");
 
+const paymentPage = document.getElementById("paymentPage");
+
+const paymentTotal = document.getElementById("paymentTotal");
+
+const paymentOrderNumber = document.getElementById("paymentOrderNumber");
+
+const ticketPage = document.getElementById("ticketPage");
+
+const ticketOrder = document.getElementById("ticketOrder");
+
+const ticketTotal = document.getElementById("ticketTotal");
+
+const ticketProducts = document.getElementById("ticketProducts");
+
 let cart = [];
+
+let currentOrderNumber = "";
 
 /* =========================
    FORMATO PRECIO
@@ -67,7 +77,7 @@ function addToCart(nombre, precio, categoria){
     updateCart();
 
     showNotification(
-        `${nombre} agregado al carrito`
+        `${nombre} agregado ☕`
     );
 
 }
@@ -91,7 +101,7 @@ function updateCart(){
                 </h3>
 
                 <p>
-                    Agregá productos del menú
+                    Agregá productos
                 </p>
 
             </div>
@@ -106,7 +116,7 @@ function updateCart(){
 
     }
 
-    cart.forEach((producto, index) => {
+    cart.forEach((producto,index) => {
 
         const item = document.createElement("div");
 
@@ -141,7 +151,7 @@ function updateCart(){
 
     const total = cart.reduce(
 
-        (acc, item) => acc + item.precio,
+        (acc,item) => acc + item.precio,
 
         0
 
@@ -154,7 +164,7 @@ function updateCart(){
 }
 
 /* =========================
-   ELIMINAR DEL CARRITO
+   ELIMINAR
 ========================= */
 
 function removeFromCart(index){
@@ -212,10 +222,10 @@ menuFilters.forEach(button => {
 });
 
 /* =========================
-   ABRIR CHECKOUT
+   IR A PAGAR
 ========================= */
 
-function openCheckout(){
+function goToPayment(){
 
     if(cart.length === 0){
 
@@ -227,59 +237,116 @@ function openCheckout(){
 
     }
 
-    checkoutModal.classList.add("active");
+    paymentPage.classList.add("active");
 
     const total = cart.reduce(
 
-        (acc, item) => acc + item.precio,
+        (acc,item) => acc + item.precio,
 
         0
 
     );
 
-    checkoutTotal.textContent = formatPrice(total);
+    paymentTotal.textContent =
+        formatPrice(total);
 
-    const numero = Math.floor(
-        Math.random() * 900 + 100
+    currentOrderNumber = `#${
+        Math.floor(Math.random() * 900 + 100)
+    }`;
+
+    paymentOrderNumber.textContent =
+        currentOrderNumber;
+
+}
+
+/* =========================
+   CONFIRMAR PAGO
+========================= */
+
+function confirmPayment(){
+
+    paymentPage.classList.remove("active");
+
+    ticketPage.classList.add("active");
+
+    const total = cart.reduce(
+
+        (acc,item) => acc + item.precio,
+
+        0
+
     );
 
-    orderNumber.textContent = `#${numero}`;
+    ticketOrder.textContent =
+        currentOrderNumber;
+
+    ticketTotal.textContent =
+        formatPrice(total);
+
+    ticketProducts.innerHTML = "";
+
+    cart.forEach(producto => {
+
+        const item = document.createElement("div");
+
+        item.className = "ticket-product";
+
+        item.innerHTML = `
+        
+            <span>
+                ${producto.nombre}
+            </span>
+
+            <strong>
+                ${formatPrice(producto.precio)}
+            </strong>
+        
+        `;
+
+        ticketProducts.appendChild(item);
+
+    });
+
+    showNotification(
+        "Pago confirmado ☕"
+    );
 
 }
 
 /* =========================
-   CERRAR CHECKOUT
+   CERRAR MODALES
 ========================= */
 
-function closeCheckout(){
+paymentPage.addEventListener("click", e => {
 
-    checkoutModal.classList.remove("active");
+    if(e.target === paymentPage){
 
-}
+        paymentPage.classList.remove("active");
 
-/* =========================
-   CERRAR AFUERA
-========================= */
+    }
 
-checkoutModal.addEventListener("click", e => {
+});
 
-    if(e.target === checkoutModal){
+ticketPage.addEventListener("click", e => {
 
-        closeCheckout();
+    if(e.target === ticketPage){
+
+        ticketPage.classList.remove("active");
 
     }
 
 });
 
 /* =========================
-   NOTIFICACION
+   NOTIFICACIONES
 ========================= */
 
 function showNotification(message){
 
     const notification = document.createElement("div");
 
-    notification.className = "custom-notification";
+    notification.className =
+        "custom-notification";
 
     notification.innerHTML = `
     
@@ -351,26 +418,6 @@ style.innerHTML = `
     opacity:1;
 
     transform:translateX(-50%) translateY(0);
-
-}
-
-.remove-btn{
-
-    margin-top:12px;
-
-    border:none;
-
-    padding:10px 14px;
-
-    border-radius:12px;
-
-    background:#ffe1e1;
-
-    color:#b10000;
-
-    cursor:pointer;
-
-    font-weight:600;
 
 }
 
