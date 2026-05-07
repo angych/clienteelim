@@ -9,15 +9,11 @@
 
     <title>ElimCafe | Pedido Online</title>
 
-    <!-- GOOGLE FONTS -->
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- CSS -->
 
     <link rel="stylesheet" href="styles.css">
 
@@ -79,7 +75,7 @@
 
             <!-- PRODUCTOS -->
 
-            <div class="products-grid" id="productsGrid">
+            <div class="products-grid">
 
                 <!-- LATTE -->
 
@@ -267,61 +263,149 @@
 
             </div>
 
-            <button class="checkout-btn" onclick="openCheckout()">
-                Finalizar Pedido
+            <button class="checkout-btn" onclick="goToPayment()">
+                Ir a Pagar
             </button>
 
         </div>
 
     </aside>
 
-    <!-- MODAL -->
+    <!-- PAGO -->
 
-    <div class="checkout-modal" id="checkoutModal">
+    <div class="payment-page" id="paymentPage">
 
-        <div class="checkout-content">
+        <div class="payment-container">
 
-            <div class="checkout-top">
+            <div class="payment-header">
 
                 <h2>
-                    Pedido Confirmado ☕
+                    💳 Pago del Pedido
                 </h2>
 
-                <button class="close-modal" onclick="closeCheckout()">
-                    ✕
+                <p>
+                    Confirmá tu método de pago
+                </p>
+
+            </div>
+
+            <!-- RESUMEN -->
+
+            <div class="payment-summary">
+
+                <div class="summary-item">
+
+                    <span>
+                        Número Pedido
+                    </span>
+
+                    <strong id="paymentOrderNumber">
+                        #000
+                    </strong>
+
+                </div>
+
+                <div class="summary-item">
+
+                    <span>
+                        Total
+                    </span>
+
+                    <strong id="paymentTotal">
+                        $0
+                    </strong>
+
+                </div>
+
+            </div>
+
+            <!-- METODOS -->
+
+            <div class="payment-methods">
+
+                <button class="pay-method">
+                    💳 Tarjeta
+                </button>
+
+                <button class="pay-method">
+                    📱 MercadoPago
+                </button>
+
+                <button class="pay-method">
+                    💵 Efectivo
                 </button>
 
             </div>
 
-            <div class="checkout-info">
+            <!-- BOTON -->
 
-                <div class="checkout-card">
+            <button class="confirm-payment-btn" onclick="confirmPayment()">
 
-                    <span>Número Pedido</span>
+                Confirmar Pago
 
-                    <h3 id="orderNumber">
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- TICKET -->
+
+    <div class="ticket-page" id="ticketPage">
+
+        <div class="ticket">
+
+            <h2>
+                ☕ ElimCafe
+            </h2>
+
+            <p class="ticket-subtitle">
+                Ticket de Pedido
+            </p>
+
+            <div class="ticket-info">
+
+                <div>
+
+                    <span>
+                        Pedido:
+                    </span>
+
+                    <strong id="ticketOrder">
                         #000
-                    </h3>
+                    </strong>
 
                 </div>
 
-                <div class="checkout-card">
+                <div>
 
-                    <span>Total</span>
+                    <span>
+                        Total:
+                    </span>
 
-                    <h3 id="checkoutTotal">
+                    <strong id="ticketTotal">
                         $0
-                    </h3>
+                    </strong>
 
                 </div>
+
+            </div>
+
+            <div class="ticket-products" id="ticketProducts">
+
+            </div>
+
+            <div class="ticket-footer">
+
+                <p>
+                    Mostrá este ticket al retirar ☕
+                </p>
 
             </div>
 
         </div>
 
     </div>
-
-    <!-- JS -->
 
     <script src="script.js"></script>
 
